@@ -66,9 +66,9 @@ def changeDNS(line, s_info, c_info, domain, sub_domain, cloud):
                     continue
                 ret = cloud.change_record(domain, info["recordId"], sub_domain, cf_ip, RECORD_TYPE, line, TTL)
                 if(DNS_SERVER != 1 or ret["code"] == 0):
-                    print("CHANGE DNS SUCCESS: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+line+"----RECORDID: " + str(info["recordId"]) + "----VALUE: " + cf_ip )
+                    print("CHANGE DNS SUCCESS")
                 else:
-                    print("CHANGE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+line+"----RECORDID: " + str(info["recordId"]) + "----VALUE: " + cf_ip + "----MESSAGE: " + ret["message"] )
+                    print("CHANGE DNS ERROR: ----Time: " + "----MESSAGE: " + ret["message"] )
         elif create_num > 0:
             for i in range(create_num):
                 if len(c_info) == 0:
@@ -78,9 +78,9 @@ def changeDNS(line, s_info, c_info, domain, sub_domain, cloud):
                     continue
                 ret = cloud.create_record(domain, sub_domain, cf_ip, RECORD_TYPE, line, TTL)
                 if(DNS_SERVER != 1 or ret["code"] == 0):
-                    print("CREATE DNS SUCCESS: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+line+"----VALUE: " + cf_ip )
+                    print("CREATE DNS SUCCESS" )
                 else:
-                    print("CREATE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+line+"----RECORDID: " + str(info["recordId"]) + "----VALUE: " + cf_ip + "----MESSAGE: " + ret["message"] )
+                    print("CREATE DNS ERROR: ----Time: " + "----MESSAGE: " + ret["message"] )
         else:
             for info in s_info:
                 if create_num == 0 or len(c_info) == 0:
@@ -91,9 +91,9 @@ def changeDNS(line, s_info, c_info, domain, sub_domain, cloud):
                     continue
                 ret = cloud.change_record(domain, info["recordId"], sub_domain, cf_ip, RECORD_TYPE, line, TTL)
                 if(DNS_SERVER != 1 or ret["code"] == 0):
-                    print("CHANGE DNS SUCCESS: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+line+"----RECORDID: " + str(info["recordId"]) + "----VALUE: " + cf_ip )
+                    print("CHANGE DNS SUCCESS")
                 else:
-                    print("CHANGE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+line+"----RECORDID: " + str(info["recordId"]) + "----VALUE: " + cf_ip + "----MESSAGE: " + ret["message"] )
+                    print("CHANGE DNS ERROR: ----Time: " + "----MESSAGE: " + ret["message"] )
                 create_num += 1
     except Exception as e:
             print("CHANGE DNS ERROR: ----Time: " + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----MESSAGE: " + str(traceback.print_exc()))
@@ -123,9 +123,9 @@ def main(cloud):
                                 if record["line"] == "移动" or record["line"] == "联通" or record["line"] == "电信":
                                     retMsg = cloud.del_record(domain, record["id"])
                                     if(retMsg["code"] == 0):
-                                        print("DELETE DNS SUCCESS: ----Time: "  + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+record["line"] )
+                                        print("DELETE DNS SUCCESS")
                                     else:
-                                        print("DELETE DNS ERROR: ----Time: "  + str(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())) + "----DOMAIN: " + domain + "----SUBDOMAIN: " + sub_domain + "----RECORDLINE: "+record["line"] + "----MESSAGE: " + retMsg["message"] )
+                                        print("DELETE DNS ERROR: ----Time: "+ "----MESSAGE: " + retMsg["message"] )
                     ret = cloud.get_record(domain, 100, sub_domain, RECORD_TYPE)
                     if DNS_SERVER != 1 or ret["code"] == 0 :
                         if DNS_SERVER == 1 and "Free" in ret["data"]["domain"]["grade"] and AFFECT_NUM > 2:
